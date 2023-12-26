@@ -9,14 +9,24 @@
 // - Deadline: One day
 // - Use of object classes, arrays, functions, prompts, etc.
 
-// ## 2 - Project Objective:
+// ## 2  Project Objective:
 // - Create a JavaScript program that simulates logging into a bank account using only the console to interact with the user.
 
 // ## 3 - Instructions:
 // - Account Creation and Management:
 //     + Allow the user, via prompts, to choose between signing up, logging in, or changing the password.
 //     + If the user only writes "exit," they exit the current process, and the choice question is asked again.
-//         * If the user chooses to sign up, here are the details they must enter:
+
+class user {
+    constructor(name,email,age,password,password_confirmed){
+        this.name=name;
+        this.email=email;
+        this.age=age;
+        this.password=password;
+        this.password_confirmed =password_confirmed ;
+    }
+}
+    //         * If the user chooses to sign up, here are the details they must enter:
 //             # Name (Full):
 //             - Check for leading or trailing spaces.
 //             - The first letter should be capitalized.
@@ -24,6 +34,19 @@
 //             - Check that all other characters are in lowercase.
 //             - Do not save the Name if it has less than 5 characters (excluding spaces).
 //             - Do not save the Name if it contains numbers, "@", or similar special characters.
+
+function NameChecker(name){
+    name=name.charAt(0).toUpperCase() + name.slice(1);
+    let words = name.split(" ");
+    for (let i = 0; i < words.length; i++) {
+        words[i] = words[i][0].toUpperCase() +words[i].toLowerCase().substr(1);
+    }
+    name=words.join(" ");
+    return name;
+}
+function takeData(){
+    
+}
 
 //             # Email:
 //             - Check for leading or trailing spaces.
@@ -77,3 +100,45 @@
             
 //             # History:
 //             - Ability to view the entire transaction history.
+
+
+
+
+
+let datbase = [];
+
+
+let doItAgain = 0;
+while(doItAgain == 0){
+    let choice = prompt(`How can i help u Sir ? \n if u want to sign in write sign in .\n if u want to sign up write sign up .\n if u want to change password write change password .\n if you want to exist write exist .`);
+    switch (choice.trim()) {
+        case `sign in`:
+            console.log(`hello`)
+            doItAgain = 1;
+            break;
+        case `sign up`:
+            while(true){
+                let name = prompt(`Insert your name (should be more than 5 characters pleas :)`);
+                if(name.trim().length>5){
+                    name=NameChecker(name);
+                    console.log(name);
+                    break;
+                }else{
+                    alert(`make sure that ur name has 5 characters or more`)
+                }
+            }
+            let customer = new user(name);
+            // customer.name
+            // customer.nameChecker()
+            doItAgain = 1;
+            break;
+        case `change password`:
+            doItAgain = 1;
+            break;
+        case `exist`:
+            break;
+        default:
+            alert(`enter a valid choice :)`)
+            break;
+    }
+}
