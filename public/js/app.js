@@ -74,11 +74,23 @@ function checkpassword(password){
 function withdrawMoney(user) {
     let money = prompt('Enter the amount that u want to Withdraw ')
     if (!money) {
-        alert(`invalid amount of money '${userInput}'`)
+        alert(`invalid amount of money '${money}'`)
     }else if (money > user.amount) {
         alert(`invalid amount of money you don't have enough money for that :<(`)
     }else{
         user.amount -= money;
+    }
+    console.log( user.amount);
+}
+
+function DepositMoney(user) {
+    let money = prompt('Enter the amount that u want to Withdraw ')
+    if (!money) {
+        alert(`invalid amount of money '${money}'`)
+    }else if (money > user.amount) {
+        alert(`invalid amount of money you don't have enough money for that :<(`)
+    }else{
+        user.amount += money;
     }
     console.log( user.amount);
 }
@@ -133,6 +145,9 @@ function main(){
                                     break;
                                 case `withdraw Money`:
                                     withdrawMoney(user);
+                                    break;
+                                case `Deposit Money`:
+                                    DepositMoney(user);
                                     break;
                                 default:
                                     alert(`enter a valid choice :)`)
