@@ -5,6 +5,7 @@ class user {
         this.age=age;
         this.password=password;
         this.amount=15000;
+        this.Investment = [];
         this.password_confirmed =password_confirmed ;
     }
 }
@@ -84,7 +85,7 @@ function withdrawMoney(user) {
 }
 
 function DepositMoney(user) {
-    let money = prompt('Enter the amount that u want to Withdraw ')
+    let money = prompt('Enter the amount that u want to deposit :<)')
     if (!money) {
         alert(`invalid amount of money '${money}'`)
     }else if (money > user.amount) {
@@ -94,7 +95,19 @@ function DepositMoney(user) {
     }
     console.log( user.amount);
 }
-
+function Invest(user) {
+    let money = prompt('Enter the amount that u want to Invest ')
+    if (!money) {
+        alert(`invalid amount of money '${money}'`)
+    }else if (money > user.amount) {
+        alert(`invalid amount of money you don't have enough money for that :<(`)
+    }else{
+        user.amount -= money;
+    }
+    console.log( user.amount);
+    user.Investment.push(user.amount);
+    console.log( user.Investment);
+}
 let datbase = [];
 
 function checkExistenceOfEmail(email) {
@@ -111,6 +124,7 @@ let customer = {
     email: 'hellofaradi@',
     password : `hello@01`,
     amount : 15000,
+    Investment:[],
 };
 
 datbase.push(customer);
@@ -148,6 +162,11 @@ function main(){
                                     break;
                                 case `Deposit Money`:
                                     DepositMoney(user);
+                                    break;
+                                case `Take a Loan`:
+                                    break;
+                                case `Invest`:
+                                    Invest(user);
                                     break;
                                 default:
                                     alert(`enter a valid choice :)`)
