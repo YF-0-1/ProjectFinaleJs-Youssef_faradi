@@ -4,6 +4,7 @@ class user {
         this.email=email;
         this.age=age;
         this.password=password;
+        this.amount=15000;
         this.password_confirmed =password_confirmed ;
     }
 }
@@ -50,8 +51,37 @@ function containSpecialCharacters(password){
     return false;
 }
 
+function checkpassword(password){
+    while(true){
+        password = prompt(`Insert your password :<)`);
+        if(!password){
+            alert('your password is empty!')
+        }else if(password.includes(' ')){
+            alert(`The password should not contain spaces`);
+        }else if(password.length<7){
+            alert(`make sure that ur password more than & characters`);
+        }else if(!containSpecialCharacters(password)){
+            alert(`make sure that ur password has special character`);
+        }else{
+            password=password.trim();
+            break;
+        }
+    }
+    return password;
+}
 
 
+function withdrawMoney() {
+    let money = prompt('Enter the amount that u want to Withdraw ')
+    if (!money) {
+        alert(`invalid amount of money '${userInput}'`)
+    }else if (money > user.amount) {
+        alert(`invalid amount of money you don't have enough money for that :<(`)
+    }else{
+        user.amount -= money;
+    }
+    return user.amount;
+}
 
 let datbase = [];
 
@@ -68,6 +98,7 @@ let customer = {
     name:`youssef`,
     email: 'hellofaradi@',
     password : `hello@01`,
+    amount : 15000,
 };
 
 datbase.push(customer);
@@ -90,8 +121,9 @@ while(doItAgain == 0){
                     if (user.password !== passcode) {
                         alert(`Incorrect password please try again :<(`);
                     } else {
-                        console.log(`Welcome, ${user.name}!`); 
-                        break
+                        console.log(`Welcome, ${user.name}!`);
+                        
+                        break;
                     }
                 }
             }
@@ -180,6 +212,23 @@ while(doItAgain == 0){
             break;
             //*change password
         case `change password`:
+            while (true) {            
+                let LogInMail = prompt(`Insert your email :<)`);
+                if (!checkExistenceOfEmail(LogInMail)) {
+                    alert(`This email doesn't exist please try again or sign up :<(`);
+                } else {
+                    let user = datbase.find(customer => customer.email === LogInMail);
+                    let passcode=checkpassword() ;
+                    if(passcode){
+                        user.password = passcode;
+                        console.log(`password changed successfully :<)`); 
+                        console.log(user);
+                        break;
+                    }else{
+                        alert(`This email doesn't exist please try again or sign up :<(`);
+                    }
+                }
+            }
             doItAgain = 1;
             break;
             //*exit
@@ -190,3 +239,27 @@ while(doItAgain == 0){
             break;
     }
 }
+
+
+
+
+// * After the user logs in, display the amount they have in their bank (user's choice) and offer them services:
+// # Logout:
+// - If the user chooses this option, they are logged out and offered the option, as at the beginning, to sign up, log in, or change the password.
+
+// # Withdraw Money:
+// - If the user chooses this option, they can withdraw an amount from their bank (not exceeding the available amount).
+
+// # Deposit Money:
+// - If the user chooses this option, they can deposit the desired amount (not exceeding 1000 dirhams).
+
+// # Take a Loan:
+// - If the user chooses this option, they can take a loan up to 20% of what they already have.
+// - They receive an additional 20%, but lose 10% with each login until reaching the amount of their loan.
+
+// # Invest:
+// - If the user chooses this option, they can invest any amount in the bank.
+// - Upon the next login, they will receive 20% of their investment each time until reaching 120% (earning 20% on each investment).
+
+// # History:
+// - Ability to view the entire transaction history.
