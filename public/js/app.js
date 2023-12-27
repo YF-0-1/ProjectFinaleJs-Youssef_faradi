@@ -182,9 +182,10 @@ function main(){
                                     Invest(user);
                                     break;
                                 case `history`:
+                                    alert(`wlh ma9adni lwa9t :~(`)
                                     break;
                                 default:
-                                    alert(`enter a valid choice :)`)
+                                    alert(`enter a valid choice :~)`)
                                     break;
                             }
 
