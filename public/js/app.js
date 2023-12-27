@@ -1,11 +1,12 @@
 class user {
-    constructor(name,email,age,password,password_confirmed){
+    constructor(name,email,age,password,loan,password_confirmed){
         this.name=name;
         this.email=email;
         this.age=age;
         this.password=password;
         this.amount=15000;
         this.Investment = [];
+        this.loan = loan;
         this.password_confirmed =password_confirmed ;
     }
 }
@@ -93,6 +94,14 @@ function DepositMoney(user) {
         user.amount += money;
     }
 }
+
+
+function TakeAloan(user) {
+    user.amount *= 1.2;
+    user.loan = user.amount;
+}
+
+
 function Invest(user) {
     let money =  parseFloat(prompt('Enter the amount that u want to Invest '));
     if (!money) {
@@ -157,18 +166,22 @@ function main(){
                                     console.log(`see you :<)`);
                                     main();
                                     break;
-                                case `withdraw Money`:
+                                case `withdraw money`:
                                     withdrawMoney(user);
                                     console.log( user.amount);
                                     break;
-                                case `Deposit Money`:
+                                case `deposit money`:
                                     DepositMoney(user);
                                     console.log( user.amount);
                                     break;
-                                case `Take a Loan`:
+                                case `take a loan`:
+                                    TakeAloan(user);
+                                    console.log(user.loan);
                                     break;
-                                case `Invest`:
+                                case `invest`:
                                     Invest(user);
+                                    break;
+                                case `history`:
                                     break;
                                 default:
                                     alert(`enter a valid choice :)`)
