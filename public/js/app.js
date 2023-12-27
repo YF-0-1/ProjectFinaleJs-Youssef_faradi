@@ -71,17 +71,6 @@ function checkpassword(password){
 }
 
 
-function withdrawMoney() {
-    let money = prompt('Enter the amount that u want to Withdraw ')
-    if (!money) {
-        alert(`invalid amount of money '${userInput}'`)
-    }else if (money > user.amount) {
-        alert(`invalid amount of money you don't have enough money for that :<(`)
-    }else{
-        user.amount -= money;
-    }
-    return user.amount;
-}
 
 let datbase = [];
 
@@ -106,7 +95,8 @@ datbase.push(customer);
 
 let doItAgain = 0;
 let name , email,age,password;
-while(doItAgain == 0){
+function main(){
+    while(doItAgain == 0){
     let choice = prompt(`How can I help you?\n1. Sign in\n2. Sign up\n3. Change password\n4. Exit`);
     switch (choice.trim()) {
         //*sign in
@@ -122,7 +112,21 @@ while(doItAgain == 0){
                         alert(`Incorrect password please try again :<(`);
                     } else {
                         console.log(`Welcome, ${user.name}!`);
-                        
+                        while(true){
+                            console.log(`Your amount is : `+user.amount);
+                            let key = prompt(`How can I help you?\n1. log out\n2. Withdraw Money:\n3. Deposit Money\n4. Take a Loan\n5. Invest\n6. History`);
+                            switch (key) {
+                                case `log out`:
+                                    console.log(`see you :<)`);
+                                    main();
+                                    break;
+                                
+                                default:
+                                    alert(`enter a valid choice :)`)
+                                    break;
+                            }
+
+                        }
                         break;
                     }
                 }
@@ -237,8 +241,15 @@ while(doItAgain == 0){
         default:
             alert(`enter a valid choice :)`)
             break;
+        }
     }
+    console.log(datbase);
 }
+
+
+main();
+
+
 
 
 
