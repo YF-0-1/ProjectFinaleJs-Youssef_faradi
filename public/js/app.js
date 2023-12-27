@@ -40,14 +40,15 @@ function NameChecker(name){
     return name;
 }
 
-
-
-
-//             # Password:
-//             - Check for leading or trailing spaces.
-//             - Do not save the Password if it has spaces in the middle.
-//             - Require at least one special character from the set: ["@", "#", "-", "+", "*", "/"].
-//             - Require at least 7 characters to confirm the password.
+function containSpecialCharacters(password){
+    let specialCharacters = `0123456789!"#%&$'()+*,-./;:<=>?@[\\]^_'\`{|}~♂♀'`;
+    for (let special of specialCharacters) {
+        if (password.includes(special)) {
+            return true;
+        }
+    }
+    return false;
+}
 
 //             # Password_confirmed:
 //             - The user must re-enter their exact password; otherwise, they are blocked.
@@ -103,15 +104,18 @@ function checkExistenceOfEmail(email) {
 
 let doItAgain = 0;
 while(doItAgain == 0){
-    let choice = prompt(`How can i help u Sir ? \n if u want to sign in write sign in .\n if u want to sign up write sign up .\n if u want to change password write change password .\n if you want to exist write exist .`);
+    let choice = prompt(`How can i help u Sir ? \n if u want to sign in write sign in .\n if u want to sign up write sign up .\n if u want to change password write change password .\n if you want to exist write exit .`);
     switch (choice.trim()) {
+        //*sign in
         case `sign in`:
             console.log(`hello`)
             doItAgain = 1;
             break;
+        //*sign up
         case `sign up`:
             let name , email,age,password;
             while(true){
+                //*name
                 while(true){
                     name = prompt(`Insert your name (should be more than 5 characters pleas :<)`);
                     if(name.trim().length<5 ){
@@ -124,6 +128,7 @@ while(doItAgain == 0){
                         break;
                     }
                 }
+                //*email
                 while(true){
                     email = prompt(`Insert your email (should be more than 10 characters pleas :<)`);
                     if(email.trim().length<10 ){
@@ -142,13 +147,14 @@ while(doItAgain == 0){
                         break;
                     }
                 }
+                //*age
                 while(true){
                     age = prompt(`Insert your age :<)`);
                     if(!age){
                         alert('your age is empty!')
                     }else if(specialNumbers(age)){
                         alert(`The age should contain digits only`);
-                    }else if(!(0 > age && age > 100)){
+                    }else if(!(0 < age && age < 100)){
                         alert(`make sure that ur age between 1 nd 2 numbers`);
                     }else{
                         age=age.trim();
@@ -156,18 +162,36 @@ while(doItAgain == 0){
                         break;
                     }
                 }
-            
+                //*password
+                while(true){
+                    password = prompt(`Insert your password :<)`);
+                    if(!password){
+                        alert('your password is empty!')
+                    }else if(password.includes(' ')){
+                        alert(`The password should not contain spaces`);
+                    }else if(password.length<7){
+                        alert(`make sure that ur password more than & characters`);
+                    }else if(!containSpecialCharacters(password)){
+                        alert(`make sure that ur password has special character`);
+                    }else{
+                        password=password.trim();
+                        console.log(`password : ` + password);
+                        break;
+                    }
+                }
                 break;
             }
-            let customer = new user(name,email,age);
+            let customer = new user(name,email,age,password);
             datbase.push(customer)
             console.log(datbase)
             doItAgain = 1;
             break;
+            //*change password
         case `change password`:
             doItAgain = 1;
             break;
-        case `exist`:
+            //*exit
+        case `exit`:
             break;
         default:
             alert(`enter a valid choice :)`)
