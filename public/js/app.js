@@ -71,6 +71,17 @@ function checkpassword(password){
 }
 
 
+function withdrawMoney(user) {
+    let money = prompt('Enter the amount that u want to Withdraw ')
+    if (!money) {
+        alert(`invalid amount of money '${userInput}'`)
+    }else if (money > user.amount) {
+        alert(`invalid amount of money you don't have enough money for that :<(`)
+    }else{
+        user.amount -= money;
+    }
+    console.log( user.amount);
+}
 
 let datbase = [];
 
@@ -120,7 +131,9 @@ function main(){
                                     console.log(`see you :<)`);
                                     main();
                                     break;
-                                
+                                case `withdraw Money`:
+                                    withdrawMoney(user);
+                                    break;
                                 default:
                                     alert(`enter a valid choice :)`)
                                     break;
