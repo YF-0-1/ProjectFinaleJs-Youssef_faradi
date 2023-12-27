@@ -73,7 +73,7 @@ function checkpassword(password){
 
 
 function withdrawMoney(user) {
-    let money = prompt('Enter the amount that u want to Withdraw ')
+    let money = parseFloat(prompt('Enter the amount that u want to withdraw:<)'))
     if (!money) {
         alert(`invalid amount of money '${money}'`)
     }else if (money > user.amount) {
@@ -81,11 +81,10 @@ function withdrawMoney(user) {
     }else{
         user.amount -= money;
     }
-    console.log( user.amount);
 }
 
 function DepositMoney(user) {
-    let money = prompt('Enter the amount that u want to deposit :<)')
+    let money = parseFloat(prompt('Enter the amount that u want to deposit :<)'))
     if (!money) {
         alert(`invalid amount of money '${money}'`)
     }else if (money > user.amount) {
@@ -93,10 +92,9 @@ function DepositMoney(user) {
     }else{
         user.amount += money;
     }
-    console.log( user.amount);
 }
 function Invest(user) {
-    let money = prompt('Enter the amount that u want to Invest ')
+    let money =  parseFloat(prompt('Enter the amount that u want to Invest '));
     if (!money) {
         alert(`invalid amount of money '${money}'`)
     }else if (money > user.amount) {
@@ -105,9 +103,11 @@ function Invest(user) {
         user.amount -= money;
     }
     console.log( user.amount);
-    user.Investment.push(user.amount);
+    user.Investment.push(money);
     console.log( user.Investment);
 }
+
+
 let datbase = [];
 
 function checkExistenceOfEmail(email) {
@@ -159,9 +159,11 @@ function main(){
                                     break;
                                 case `withdraw Money`:
                                     withdrawMoney(user);
+                                    console.log( user.amount);
                                     break;
                                 case `Deposit Money`:
                                     DepositMoney(user);
+                                    console.log( user.amount);
                                     break;
                                 case `Take a Loan`:
                                     break;
