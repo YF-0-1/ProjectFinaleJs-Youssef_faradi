@@ -50,39 +50,8 @@ function containSpecialCharacters(password){
     return false;
 }
 
-//             # Password_confirmed:
-//             - The user must re-enter their exact password; otherwise, they are blocked.
 
-//         * If the user chooses to log in, here are the details they must enter:
-//             # Email:
-//             - Check if the email exists in our Database.
-            
-//             # Password:
-//             - Check if the entered password is associated with the previously entered email.
 
-//         * If the user chooses to change the password:
-//             - They must enter their existing Email in the Database.
-
-//         * After the user logs in, display the amount they have in their bank (user's choice) and offer them services:
-//             # Logout:
-//             - If the user chooses this option, they are logged out and offered the option, as at the beginning, to sign up, log in, or change the password.
-            
-//             # Withdraw Money:
-//             - If the user chooses this option, they can withdraw an amount from their bank (not exceeding the available amount).
-            
-//             # Deposit Money:
-//             - If the user chooses this option, they can deposit the desired amount (not exceeding 1000 dirhams).
-            
-//             # Take a Loan:
-//             - If the user chooses this option, they can take a loan up to 20% of what they already have.
-//             - They receive an additional 20%, but lose 10% with each login until reaching the amount of their loan.
-            
-//             # Invest:
-//             - If the user chooses this option, they can invest any amount in the bank.
-//             - Upon the next login, they will receive 20% of their investment each time until reaching 120% (earning 20% on each investment).
-            
-//             # History:
-//             - Ability to view the entire transaction history.
 
 let datbase = [];
 
@@ -95,25 +64,41 @@ function checkExistenceOfEmail(email) {
     return false;
 }
 
-// let customer = {
-//     email: 'hellofaradi@' 
-// };
+let customer = {
+    name:`youssef`,
+    email: 'hellofaradi@',
+    password : `hello@01`,
+};
 
-// datbase.push(customer);
+datbase.push(customer);
 
 
 let doItAgain = 0;
+let name , email,age,password;
 while(doItAgain == 0){
-    let choice = prompt(`How can i help u Sir ? \n if u want to sign in write sign in .\n if u want to sign up write sign up .\n if u want to change password write change password .\n if you want to exist write exit .`);
+    let choice = prompt(`How can I help you?\n1. Sign in\n2. Sign up\n3. Change password\n4. Exit`);
     switch (choice.trim()) {
         //*sign in
         case `sign in`:
-            console.log(`hello`)
+            while (true) {            
+                let LogInMail = prompt(`Insert your email :<)`);
+                if (!checkExistenceOfEmail(LogInMail)) {
+                    alert(`This email doesn't exist please try again or sign up.`);
+                } else {
+                    let user = datbase.find(customer => customer.email === LogInMail);
+                    let passcode = prompt('Enter your password :<)');
+                    if (user.password !== passcode) {
+                        alert(`Incorrect password please try again :<(`);
+                    } else {
+                        console.log(`Welcome, ${user.name}!`); 
+                        break
+                    }
+                }
+            }
             doItAgain = 1;
             break;
         //*sign up
         case `sign up`:
-            let name , email,age,password;
             while(true){
                 //*name
                 while(true){
@@ -179,9 +164,16 @@ while(doItAgain == 0){
                         break;
                     }
                 }
+                while(true){
+                    password_confirmed = prompt('Confirm password');
+                    if (password_confirmed === password) {
+                        break;
+                    }
+                    alert('password incorrect :<(');
+                }
                 break;
             }
-            let customer = new user(name,email,age,password);
+            let customer = new user(name,email,age,password,password_confirmed);
             datbase.push(customer)
             console.log(datbase)
             doItAgain = 1;
