@@ -1,22 +1,3 @@
-// ### First Project JavaScript:
-
-// ## 1 - Instructions:
-// - Create a folder named: first_project_js_firstName_lastName
-// - Create a repository with the same name as the folder
-// - Adhere to the folder structure
-// - Individual work
-// - Minimum of 10 commits
-// - Deadline: One day
-// - Use of object classes, arrays, functions, prompts, etc.
-
-// ## 2  Project Objective:
-// - Create a JavaScript program that simulates logging into a bank account using only the console to interact with the user.
-
-// ## 3 - Instructions:
-// - Account Creation and Management:
-//     + Allow the user, via prompts, to choose between signing up, logging in, or changing the password.
-//     + If the user only writes "exit," they exit the current process, and the choice question is asked again.
-
 class user {
     constructor(name,email,age,password,password_confirmed){
         this.name=name;
@@ -26,14 +7,28 @@ class user {
         this.password_confirmed =password_confirmed ;
     }
 }
-    //         * If the user chooses to sign up, here are the details they must enter:
-//             # Name (Full):
-//             - Check for leading or trailing spaces.
-//             - The first letter should be capitalized.
-//             - After each space, the first letter should remain capitalized.
-//             - Check that all other characters are in lowercase.
-//             - Do not save the Name if it has less than 5 characters (excluding spaces).
-//             - Do not save the Name if it contains numbers, "@", or similar special characters.
+
+//Name
+
+function specialCharacters(name){
+    let specialCharacters = `0123456789!"#%&$'()+*,-./;:<=>?@[\\]^_'\`{|}~♂♀'`;
+    for (let letter of name) {
+        if (specialCharacters.includes(letter)) {
+            return true;
+        }
+    }
+    return false;
+} 
+
+function specialNumbers(numbers){
+    let specialDigits = '0123456789';
+    for (let number of numbers) {
+        if (!specialDigits.includes(number)) {
+            return true;
+        }
+    }
+    return false;
+}
 
 function NameChecker(name){
     name=name.charAt(0).toUpperCase() + name.slice(1);
@@ -44,22 +39,9 @@ function NameChecker(name){
     name=words.join(" ");
     return name;
 }
-function takeData(){
-    
-}
 
-//             # Email:
-//             - Check for leading or trailing spaces.
-//             - Convert all letters to lowercase.
-//             - Do not save the Email if it has spaces in the middle.
-//             - Do not save the Email if it has fewer than 10 characters (excluding spaces).
-//             - Do not save the Email if it does not contain exactly one "@" symbol.
-//             - Ensure the email is unique.
 
-//             # Age:
-//             - Check for leading, trailing, or middle spaces.
-//             - Verify that only digits are entered.
-//             - Do not save the Age if it has 0 characters, or if it has 3 characters or more.
+
 
 //             # Password:
 //             - Check for leading or trailing spaces.
@@ -101,11 +83,22 @@ function takeData(){
 //             # History:
 //             - Ability to view the entire transaction history.
 
-
-
-
-
 let datbase = [];
+
+function checkExistenceOfEmail(email) {
+    for (let user of datbase) {
+        if (user.email === email) {
+            return true;
+        }
+    }
+    return false;
+}
+
+// let customer = {
+//     email: 'hellofaradi@' 
+// };
+
+// datbase.push(customer);
 
 
 let doItAgain = 0;
@@ -117,19 +110,44 @@ while(doItAgain == 0){
             doItAgain = 1;
             break;
         case `sign up`:
+            let name , email,age,password;
             while(true){
-                let name = prompt(`Insert your name (should be more than 5 characters pleas :)`);
-                if(name.trim().length>5){
-                    name=NameChecker(name);
-                    console.log(name);
-                    break;
-                }else{
-                    alert(`make sure that ur name has 5 characters or more`)
+                while(true){
+                    name = prompt(`Insert your name (should be more than 5 characters pleas :<)`);
+                    if(name.trim().length<5 ){
+                        alert(`make sure that ur name has 5 characters or more`)
+                    }else if(specialCharacters(name)){
+                        alert(`your name shouldn't contain special character`);
+                    }else{
+                        name=NameChecker(name);
+                        console.log(`Name : ` + name);
+                        break;
+                    }
                 }
+                while(true){
+                    email = prompt(`Insert your email (should be more than 10 characters pleas :<)`);
+                    if(email.trim().length<10 ){
+                        alert(`make sure that ur email has 10 characters`);
+                    }
+                    else if(email.includes(' ')){
+                        alert(`make sure that ur email has no space on it`);
+                    } 
+                    else if((email.match(/@/) || []).length == false){
+                        alert(`make sure that ur email has @ on it`);
+                    }else if(checkExistenceOfEmail(email)){
+                        alert(`this'${email}' allready registred in our data base`)
+                    }else{
+                        email= email.toLowerCase();
+                        console.log(`email : ` + email);
+                        break;
+                    }
+                }
+            
+                break;
             }
-            let customer = new user(name);
-            // customer.name
-            // customer.nameChecker()
+            let customer = new user(name,email,age);
+            datbase.push(customer)
+            console.log(datbase)
             doItAgain = 1;
             break;
         case `change password`:
