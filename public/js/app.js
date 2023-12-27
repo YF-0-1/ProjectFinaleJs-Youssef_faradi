@@ -142,6 +142,20 @@ while(doItAgain == 0){
                         break;
                     }
                 }
+                while(true){
+                    age = prompt(`Insert your age :<)`);
+                    if(!age){
+                        alert('your age is empty!')
+                    }else if(specialNumbers(age)){
+                        alert(`The age should contain digits only`);
+                    }else if(!(0 > age && age > 100)){
+                        alert(`make sure that ur age between 1 nd 2 numbers`);
+                    }else{
+                        age=age.trim();
+                        console.log(`age : ` + age);
+                        break;
+                    }
+                }
             
                 break;
             }
